@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>TAP network</title>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    #mynetwork {
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+    }
+    #legend {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .box {
+      width: 14px;
+      height: 14px;
+      border: 1px solid #333;
+      margin-right: 6px;
+    }
+    .edge-sample {
+      width: 22px;
+      height: 0;
+      border-bottom: 3px solid #000;
+      margin-right: 6px;
+    }
+    .edge-sample-dash {
+      width: 22px;
+      height: 0;
+      border-bottom: 3px dashed #666;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+<div id="mynetwork"></div>
+<div id="legend">
+  <div><b>Legend</b></div>
+  <div class="legend-item"><div class="box" style="background:#f9c2e8;"></div>Sensory</div>
+  <div class="legend-item"><div class="box" style="background:#ff8e80;"></div>Interneuron</div>
+  <div class="legend-item"><div class="box" style="background:#ffd862;"></div>DVA</div>
+  <div class="legend-item"><div class="edge-sample"></div>Chemical</div>
+  <div class="legend-item"><div class="edge-sample-dash"></div>Electrical</div>
+</div>
+<script>
+  var nodes = new vis.DataSet([{"id": "ALML", "label": "ALML", "shape": "dot", "size": 25, "color": {"background": "#f9c2e8", "border": "#333"}, "x": -400, "y": -315.0, "physics": false}, {"id": "ALMR", "label": "ALMR", "shape": "dot", "size": 25, "color": {"background": "#f9c2e8", "border": "#333"}, "x": -400, "y": -225.0, "physics": false}, {"id": "AVM", "label": "AVM", "shape": "dot", "size": 25, "color": {"background": "#f9c2e8", "border": "#333"}, "x": -400, "y": -135.0, "physics": false}, {"id": "AVAL", "label": "AVAL", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": -360.0, "physics": false}, {"id": "AVAR", "label": "AVAR", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": -270.0, "physics": false}, {"id": "AVBL", "label": "AVBL", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": -180.0, "physics": false}, {"id": "AVBR", "label": "AVBR", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": -90.0, "physics": false}, {"id": "AVDL", "label": "AVDL", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": 0.0, "physics": false}, {"id": "AVDR", "label": "AVDR", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": 90.0, "physics": false}, {"id": "PVCL", "label": "PVCL", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": 180.0, "physics": false}, {"id": "PVCR", "label": "PVCR", "shape": "dot", "size": 25, "color": {"background": "#ff8e80", "border": "#333"}, "x": 0, "y": 270.0, "physics": false}, {"id": "DVA", "label": "DVA", "shape": "dot", "size": 25, "color": {"background": "#ffd862", "border": "#333"}, "x": 400, "y": 0, "physics": false}]);
+  var edges = new vis.DataSet([{"from": "PVCL", "to": "AVAL", "arrows": "to", "width": 1.7272727272727273, "title": "PVCL \u2192 AVAL<br>synapses: 2<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCL", "to": "AVAR", "arrows": "to", "width": 1.3636363636363638, "title": "PVCL \u2192 AVAR<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCL", "to": "AVBL", "arrows": "to", "width": 2.8181818181818183, "title": "PVCL \u2192 AVBL<br>synapses: 5<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCL", "to": "AVBR", "arrows": "to", "width": 4.272727272727273, "title": "PVCL \u2192 AVBR<br>synapses: 9<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCL", "to": "AVDL", "arrows": "to", "width": 1.3636363636363638, "title": "PVCL \u2192 AVDL<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCL", "to": "AVDR", "arrows": "to", "width": 2.4545454545454546, "title": "PVCL \u2192 AVDR<br>synapses: 4<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCL", "to": "PVCR", "arrows": "to", "width": 1.3636363636363638, "title": "PVCL \u2192 PVCR<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "AVM", "to": "ALML", "arrows": "to", "width": 1.7272727272727273, "title": "AVM \u2192 ALML<br>synapses: 2<br>types: chemical", "color": {"color": "#000"}}, {"from": "AVM", "to": "AVBL", "arrows": "to", "width": 3.1818181818181817, "title": "AVM \u2192 AVBL<br>synapses: 6<br>types: chemical", "color": {"color": "#000"}}, {"from": "AVM", "to": "AVBR", "arrows": "to", "width": 3.5454545454545454, "title": "AVM \u2192 AVBR<br>synapses: 7<br>types: chemical", "color": {"color": "#000"}}, {"from": "AVM", "to": "AVDR", "arrows": "to", "width": 1.3636363636363638, "title": "AVM \u2192 AVDR<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "AVM", "to": "PVCL", "arrows": "to", "width": 5.0, "title": "AVM \u2192 PVCL<br>synapses: 11<br>types: chemical", "color": {"color": "#000"}}, {"from": "AVM", "to": "PVCR", "arrows": "to", "width": 2.8181818181818183, "title": "AVM \u2192 PVCR<br>synapses: 5<br>types: chemical", "color": {"color": "#000"}}, {"from": "ALML", "to": "AVDR", "arrows": "to", "width": 1.3636363636363638, "title": "ALML \u2192 AVDR<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "ALML", "to": "AVM", "arrows": "to", "width": 1.3636363636363638, "title": "ALML \u2192 AVM<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "ALML", "to": "PVCL", "arrows": "to", "width": 4.636363636363637, "title": "ALML \u2192 PVCL<br>synapses: 10<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCR", "to": "AVAL", "arrows": "to", "width": 1.3636363636363638, "title": "PVCR \u2192 AVAL<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCR", "to": "AVAR", "arrows": "to", "width": 2.4545454545454546, "title": "PVCR \u2192 AVAR<br>synapses: 4<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCR", "to": "AVBL", "arrows": "to", "width": 5.0, "title": "PVCR \u2192 AVBL<br>synapses: 11<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCR", "to": "AVBR", "arrows": "to", "width": 3.909090909090909, "title": "PVCR \u2192 AVBR<br>synapses: 8<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCR", "to": "AVDL", "arrows": "to", "width": 3.1818181818181817, "title": "PVCR \u2192 AVDL<br>synapses: 6<br>types: chemical", "color": {"color": "#000"}}, {"from": "PVCR", "to": "AVDR", "arrows": "to", "width": 1.3636363636363638, "title": "PVCR \u2192 AVDR<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "DVA", "to": "AVAL", "arrows": "to", "width": 1.3636363636363638, "title": "DVA \u2192 AVAL<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "DVA", "to": "AVAR", "arrows": "to", "width": 1.7272727272727273, "title": "DVA \u2192 AVAR<br>synapses: 2<br>types: chemical", "color": {"color": "#000"}}, {"from": "DVA", "to": "AVBR", "arrows": "to", "width": 1.3636363636363638, "title": "DVA \u2192 AVBR<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "DVA", "to": "AVDL", "arrows": "to", "width": 1.3636363636363638, "title": "DVA \u2192 AVDL<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "DVA", "to": "PVCL", "arrows": "to", "width": 1.3636363636363638, "title": "DVA \u2192 PVCL<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "DVA", "to": "PVCR", "arrows": "to", "width": 1.3636363636363638, "title": "DVA \u2192 PVCR<br>synapses: 1<br>types: chemical", "color": {"color": "#000"}}, {"from": "ALMR", "to": "AVDL", "arrows": "to", "width": 1.7272727272727273, "title": "ALMR \u2192 AVDL<br>synapses: 2<br>types: chemical", "color": {"color": "#000"}}, {"from": "ALMR", "to": "AVDR", "arrows": "to", "width": 1.7272727272727273, "title": "ALMR \u2192 AVDR<br>synapses: 2<br>types: chemical", "color": {"color": "#000"}}, {"from": "ALMR", "to": "PVCR", "arrows": "to", "width": 3.5454545454545454, "title": "ALMR \u2192 PVCR<br>synapses: 7<br>types: chemical", "color": {"color": "#000"}}]);
+  var network = new vis.Network(
+    document.getElementById('mynetwork'),
+    {nodes: nodes, edges: edges},
+    {
+      interaction: { dragNodes: true, zoomView: true, dragView: true },
+      physics: false
+    }
+  );
+</script>
+</body>
+</html>
