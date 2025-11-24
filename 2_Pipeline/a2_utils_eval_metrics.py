@@ -34,13 +34,13 @@ class eval_metrics:
         self.hub_neurons = hub_neurons
 
         # Global
-        # self.avg_clustering = avg_clustering
+        #self.avg_clustering = avg_clustering
         self.avg_shortest_path_length = avg_shortest_path_length
         # self.small_world = small_world
 
 
 
-def compute_eval_metrics(G, verbose=False):
+def compute_eval_metrics(G, verbose=True):
     # 1) Restrict to largest strongly connected component (directed) (as they did in Varshney et al. 2011)
     if nx.is_strongly_connected(G):
         G_lcc = G
@@ -84,7 +84,7 @@ def compute_eval_metrics(G, verbose=False):
         in_degrees=in_degrees,
         out_degrees=out_degrees,
         hub_neurons=hub_neurons,
-        #avg_clustering=avg_clustering,
         avg_shortest_path_length=avg_shortest_path_length,
+        #avg_clustering=avg_clustering,
         #small_world=small_world,
     )

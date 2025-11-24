@@ -5,7 +5,7 @@ from sklearn.metrics import (jaccard_score, hamming_loss, precision_score, recal
 # Training objectives
 ######################
 
-def train_metrics(A_target, A_model, verbose=False):
+def train_metrics(A_target, A_model, verbose=True):
     if A_target.shape != A_model.shape:
         raise ValueError(f"Shape mismatch: target {A_target.shape}, model {A_model.shape}")
 
