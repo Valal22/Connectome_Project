@@ -34,7 +34,7 @@ class eval_metrics:
         self.hub_neurons = hub_neurons
 
         # Global
-        #self.avg_clustering = avg_clustering
+        # self.avg_clustering = avg_clustering
         self.avg_shortest_path_length = avg_shortest_path_length
         # self.small_world = small_world
 
