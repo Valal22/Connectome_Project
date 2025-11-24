@@ -3,14 +3,14 @@ import networkx as nx
 
 
 # Convert adjacency matrix to a NetworkX directed graph
-def adjacency_to_digraph(A, nodes):
+def adjacency_to_digraph(A, neurons):
     G = nx.DiGraph()
-    G.add_nodes_from(nodes)
+    G.add_nodes_from(neurons)
     N = A.shape[0]
     for i in range(N):
         for j in range(N):
             if A[i, j]:
-                G.add_edge(nodes[i], nodes[j])
+                G.add_edge(neurons[i], neurons[j])
     return G
 
     
@@ -53,19 +53,19 @@ def compute_eval_metrics(G, verbose=False):
         print(f"G_lcc type: {type(G_lcc)}")
         print(f"G_lcc edge count: {G_lcc.number_of_edges()}")
 
-    nodes = list(G_lcc.nodes())
+    neurons = list(G_lcc.nodes())
 
     # 2) Local degrees on the directed lcc
     in_degrees_dict = dict(G_lcc.in_degree())
     out_degrees_dict = dict(G_lcc.out_degree())
 
-    in_degrees = np.array([in_degrees_dict[n] for n in nodes], dtype=float)
-    out_degrees = np.array([out_degrees_dict[n] for n in nodes], dtype=float)
+    in_degrees = np.array([in_degrees_dict[n] for n in neurons], dtype=float)
+    out_degrees = np.array([out_degrees_dict[n] for n in neurons], dtype=float)
     total_degrees = in_degrees + out_degrees
 
     # 3) "Rich-club" (hubs): top 10% by total degree, within the lcc        TO CHECK: IT'S A RAW IMPLEMENTATION AND IT'S NOT MATCHING THE VALUES IN TOWLSON PAPER
     degree_threshold = np.percentile(total_degrees, 90)
-    hub_neurons = [n for n, d in zip(nodes, total_degrees) if d >= degree_threshold]
+    hub_neurons = [n for n, d in zip(neurons, total_degrees) if d >= degree_threshold]
 
     # 4) Clustering on the DIRECTED, lcc      TO IMPLEMENT
     #avg_clustering = nx.average_clustering(G_lcc, nodes=None, weight=None, count_zeros=True) # This is the standard NetworkX implementation and does not work on Directed graphs  

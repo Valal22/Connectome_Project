@@ -36,3 +36,5 @@ def load_hermaphrodite_chemical_connectome(file_path, sheet_name="hermaphrodite 
                 A[i, j] = 1  # binarize
 
     return A, neurons
+        # A: (N, N) adjacency matrix
+        # neurons: list of N neuron names

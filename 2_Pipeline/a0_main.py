@@ -6,7 +6,7 @@ from a2_utils_eval_metrics import adjacency_to_digraph, compute_eval_metrics
 from a3_models_rand_generator import generate_er_random_graph
 from a4_models_train_metr import train_metrics, print_subgraph
 
-# Path to the file shipped inside this repo
+
 HERE = Path(__file__).resolve().parent
 DEFAULT_FILE = HERE / "SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx"
 
@@ -79,7 +79,7 @@ def run_rand_pipeline(file_path, num_epochs, p, seed):
 ##################
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="rand connectome training pipeline")
+    parser = argparse.ArgumentParser(description="rand generator training pipeline")
     parser.add_argument(
         "--file-path",
         type=str,
