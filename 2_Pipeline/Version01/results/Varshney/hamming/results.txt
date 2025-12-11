@@ -1,0 +1,61 @@
+============================================================
+CMA-ES Optimization
+============================================================
+  Parameters: [p_in, p_out]
+  Metric: hamming_norm
+  Population size: 12
+  Max generations: 50
+  Initial sigma: 0.05
+  Min std: 0.005
+  Initial guess: p_in=0.3752, p_out=0.9508
+============================================================
+Gen   1 | p_in=0.3298 p_out=0.8801 | loss=11.38438 | edges=54021 density=0.6940 | f1=0.0491 jacc=0.0252
+Gen   2 | p_in=0.3102 p_out=0.7091 | loss=9.32908 | edges=44759 density=0.5750 | f1=0.0472 jacc=0.0241
+Gen   3 | p_in=0.2656 p_out=0.4105 | loss=5.74820 | edges=28166 density=0.3618 | f1=0.0481 jacc=0.0246
+Gen   4 | p_in=0.2001 p_out=0.0350 | loss=1.06298 | edges=6996 density=0.0899 | f1=0.0485 jacc=0.0249
+Gen   5 | p_in=0.2155 p_out=0.0200 | loss=0.97752 | edges=6562 density=0.0843 | f1=0.0530 jacc=0.0272
+Gen   6 | p_in=0.1332 p_out=0.0676 | loss=1.04674 | edges=6823 density=0.0877 | f1=0.0468 jacc=0.0240
+Gen   7 | p_in=0.0033 p_out=0.0143 | loss=0.03828 | edges=809 density=0.0104 | f1=0.0193 jacc=0.0098
+Gen   8 | p_in=0.0028 p_out=0.0280 | loss=0.04700 | edges=1528 density=0.0196 | f1=0.0231 jacc=0.0117
+Gen   9 | p_in=0.0190 p_out=0.0802 | loss=0.54969 | edges=4517 density=0.0580 | f1=0.0381 jacc=0.0194
+Gen  10 | p_in=0.0326 p_out=0.0130 | loss=0.04629 | edges=1496 density=0.0192 | f1=0.0244 jacc=0.0123
+Gen  11 | p_in=0.0041 p_out=0.0010 | loss=0.03006 | edges=151 density=0.0019 | f1=0.0017 jacc=0.0009
+Gen  12 | p_in=0.0029 p_out=0.0027 | loss=0.03065 | edges=203 density=0.0026 | f1=0.0042 jacc=0.0021
+Gen  13 | p_in=0.0011 p_out=0.0010 | loss=0.02914 | edges=85 density=0.0011 | f1=0.0009 jacc=0.0004
+Gen  14 | p_in=0.0049 p_out=0.0018 | loss=0.03073 | edges=207 density=0.0027 | f1=0.0050 jacc=0.0025
+Gen  15 | p_in=0.0010 p_out=0.0010 | loss=0.02912 | edges=84 density=0.0011 | f1=0.0035 jacc=0.0018
+Gen  16 | p_in=0.0010 p_out=0.0010 | loss=0.02911 | edges=84 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  17 | p_in=0.0011 p_out=0.0010 | loss=0.02912 | edges=84 density=0.0011 | f1=0.0035 jacc=0.0018
+Gen  18 | p_in=0.0011 p_out=0.0012 | loss=0.02921 | edges=89 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  19 | p_in=0.0010 p_out=0.0011 | loss=0.02915 | edges=84 density=0.0011 | f1=0.0009 jacc=0.0004
+Gen  20 | p_in=0.0011 p_out=0.0010 | loss=0.02908 | edges=83 density=0.0011 | f1=0.0009 jacc=0.0004
+Gen  21 | p_in=0.0010 p_out=0.0011 | loss=0.02914 | edges=86 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  22 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=83 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  23 | p_in=0.0010 p_out=0.0010 | loss=0.02910 | edges=83 density=0.0011 | f1=0.0035 jacc=0.0018
+Gen  24 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=84 density=0.0011 | f1=0.0009 jacc=0.0004
+Gen  25 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=84 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  26 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=84 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  27 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=83 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  28 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=83 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  29 | p_in=0.0011 p_out=0.0010 | loss=0.02908 | edges=83 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  30 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=83 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  31 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=84 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  32 | p_in=0.0010 p_out=0.0011 | loss=0.02909 | edges=84 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  33 | p_in=0.0010 p_out=0.0011 | loss=0.02911 | edges=84 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  34 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=83 density=0.0011 | f1=0.0035 jacc=0.0018
+Gen  35 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=83 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  36 | p_in=0.0011 p_out=0.0010 | loss=0.02909 | edges=84 density=0.0011 | f1=0.0035 jacc=0.0018
+Gen  37 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=84 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  38 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=82 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  39 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=83 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  40 | p_in=0.0010 p_out=0.0010 | loss=0.02907 | edges=83 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  41 | p_in=0.0011 p_out=0.0011 | loss=0.02906 | edges=84 density=0.0011 | f1=0.0070 jacc=0.0035
+Gen  42 | p_in=0.0010 p_out=0.0010 | loss=0.02908 | edges=83 density=0.0011 | f1=0.0035 jacc=0.0018
+Gen  43 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=82 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  44 | p_in=0.0011 p_out=0.0010 | loss=0.02910 | edges=83 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  45 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=83 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  46 | p_in=0.0010 p_out=0.0011 | loss=0.02906 | edges=84 density=0.0011 | f1=0.0061 jacc=0.0031
+Gen  47 | p_in=0.0010 p_out=0.0010 | loss=0.02909 | edges=82 density=0.0011 | f1=0.0026 jacc=0.0013
+Gen  48 | p_in=0.0010 p_out=0.0010 | loss=0.02911 | edges=84 density=0.0011 | f1=0.0009 jacc=0.0004
+Gen  49 | p_in=0.0010 p_out=0.0010 | loss=0.02910 | edges=84 density=0.0011 | f1=0.0018 jacc=0.0009
+Gen  50 | p_in=0.0010 p_out=0.0011 | loss=0.02911 | edges=84 density=0.0011 | f1=0.0035 jacc=0.0018

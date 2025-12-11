@@ -35,11 +35,11 @@ This repository implements a simple baseline pipeline showing how datasets are l
 
 2. **Non-default runs (custom configuration)**. Other than changing file path, it's possible to override any of these CLI arguments:
     - **Change the number of epochs**:
-        - `python a0_main.py --file-path \path\SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx --num-epochs 10`
+        - `python a0_main.py --file-path SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx --num-epochs 10`
     - **Change ER edge probability p**:
-        - `python a0_main.py --file-path \path\SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx --num-epochs 5 --p 0.03`
+        - `python a0_main.py --file-path SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx --num-epochs 5 --p 0.03`
     - **Change the random seed**:
-        - `python a0_main.py --file-path \path\SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx --num-epochs 5 --p 0.0413 --seed 42`
+        - `python a0_main.py --file-path SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx --num-epochs 5 --p 0.0413 --seed 42`
     - **Combine all of them.**
 
 

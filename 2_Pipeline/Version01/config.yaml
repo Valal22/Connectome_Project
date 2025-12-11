@@ -1,0 +1,74 @@
+##################################
+# CMA-ES SBM Optimization Config 
+##################################
+
+##################################
+# Target connectome data
+##################################
+dataset_type: cook        # 'cook' or 'varshney'
+file_path: "SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx"
+sheet_name: "hermaphrodite chemical"
+
+
+
+#################
+# SBM Parameters
+#################
+# Initial guess for p_in (within-block edge probability)
+initial_p_in: null    # 0.15
+
+# Initial guess for p_out (between-block edge probability)  
+initial_p_out: null   # 0.02
+
+# Parameter bounds [min, max]
+bounds_p_in: [0.001, 1]     # [0.001, 0.4]      
+bounds_p_out: [0.001, 1]    # [0.001, 0.1]
+
+
+
+
+#################
+# CMA-ES Settings
+#################
+# Initial step size (sigma)
+sigma: 0.05
+
+# Minimum standard deviation for parameters 
+minstd: 0.005
+
+# Number of generations (iterations)
+generations: 50
+
+# Population size (candidates per generation)
+popsize: 12
+
+# Random seed for reproducibility
+seed: 42
+
+
+
+
+
+##################
+# Fitness Function
+##################
+# Training metric to optimize
+# Options: 'f1', 'edge_jaccard', 'precision', 'recall', 'adjacency_similarity', 'hamming_norm'
+metric: f1
+
+# Number of SBM samples to average per fitness evaluation
+n_samples: 3
+
+# Penalize solutions with too many edges
+edge_penalty: true
+
+# Max edges allowed (as multiplier of target edges)
+# Only used if edge_penalty is true
+max_edges_multiplier: 1.1
+
+
+
+##################
+# Save results to file
+##################
+output_dir: "results"
