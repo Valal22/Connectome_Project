@@ -158,7 +158,7 @@ def run_estg_model(n_t_s, adult_degree, delta, seed=None):
     - n_t_s: DataFrame with columns ['label', 'x(mm)', 'y(mm)', 'birth_time (min)']
     - adult_degree: Dict mapping neuron name to degree in adult network
     - delta: The δ parameter controlling typical connection distance, so what is considered close vs far. Example:
-        The paper found δ ≈ 0.0126 mm (12.6 micrometers). This means: neurons within 13 um have good chance of connecting
+        The paper found δ ≈ 0.0126 mm (12.6 micrometers). This means: neurons within 12.6 um have good chance of connecting
     - seed: Random seed for reproducibility
     
     Returns:
@@ -375,7 +375,7 @@ def plot_fig1D(real_growth_curves, model_growth_curves, n_t_s, hatching_t=800):
     plt.close()
 
 
-def plot_fig1c(n_t_s, real_growth_curves, model_growth_curves, hatching_t=800, out_file="fig1c_like.png"):
+def plot_fig1c(n_t_s, real_growth_curves, model_growth_curves, hatching_t=800, out_file="fig1c.png"):
     # Replicating Fig 1C
     n_sorted = n_t_s.sort_values('birth_time (min)').reset_index(drop=True)
     t_steps = n_sorted['birth_time (min)'].to_numpy()
@@ -473,7 +473,7 @@ def main():
     # 4. Run model 
     print("\n[4] Running ESTG model (50 trials)...")
     model_growth_curves = []
-    model_edges_list = []       # Not used, just to store 
+    model_edges_list = []       # Not used, just to store for now
     K_values = []
     
     for trial in range(50):     # it should be 500, but even with 50 the result is the same
@@ -492,7 +492,7 @@ def main():
     plot_interp(t_and_s_points)
     
     plot_fig1D(real_growth_curves, model_growth_curves, n_t_s, hatching_t)
-    plot_fig1c(n_t_s, real_growth_curves, model_growth_curves, hatching_t=800, out_file="fig1c_like.png")
+    plot_fig1c(n_t_s, real_growth_curves, model_growth_curves, hatching_t=800, out_file="fig1c.png")
 
     # 6. Summary statistics
     print("\n[6] Summary of results:")
