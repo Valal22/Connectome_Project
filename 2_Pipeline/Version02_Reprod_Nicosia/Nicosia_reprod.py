@@ -305,9 +305,9 @@ def plot_fig1D(real_growth_curves, model_growth_curves, n_t_s, hatching_t=800):
     ax1 = axes[0]
     
     # Plot real data
-    N_obs = [g[0] for g in real_growth_curves]
-    K_obs = [g[1] for g in real_growth_curves]
-    ax1.scatter(N_obs, K_obs, c='gold', s=20, alpha=0.7, label='Real (C. elegans)', zorder=3)
+    N_real = [g[0] for g in real_growth_curves]
+    K_real = [g[1] for g in real_growth_curves]
+    ax1.scatter(N_real, K_real, c='gold', s=20, alpha=0.7, label='Real (C. elegans)', zorder=3)
     
     # Plot model average
     N_model = [g[0] for g in model_growth_curves[0]]
@@ -326,8 +326,8 @@ def plot_fig1D(real_growth_curves, model_growth_curves, n_t_s, hatching_t=800):
     
     # Fit lines for pre/post hatching
     # Pre-hatching: K  N^2. This corresponds to the Accelerated Topological Growth models (Binomial Accelerated Growth (BAG) and the Hidden-variable Accelerated Growth (HAG)) 
-    N_pre = np.array([n for n in N_obs if n < N_at_hatching])
-    K_pre = np.array([K_obs[i] for i, n in enumerate(N_obs) if n < N_at_hatching])
+    N_pre = np.array([n for n in N_real if n < N_at_hatching])
+    K_pre = np.array([K_real[i] for i, n in enumerate(N_real) if n < N_at_hatching])
     if len(N_pre) > 2:
         # Fit K = a*N^2
         coeffs_pre = np.polyfit(N_pre, K_pre, 2)
@@ -337,11 +337,11 @@ def plot_fig1D(real_growth_curves, model_growth_curves, n_t_s, hatching_t=800):
 
 
     # Post-hatching: K  N (linear). It correspond to the Barabási and Albert (BA) model (linear preferential attachment model)
-    N_post = np.array([n for n in N_obs if n >= N_at_hatching])
-    K_post = np.array([K_obs[i] for i, n in enumerate(N_obs) if n >= N_at_hatching])
+    N_post = np.array([n for n in N_real if n >= N_at_hatching])
+    K_post = np.array([K_real[i] for i, n in enumerate(N_real) if n >= N_at_hatching])
     if len(N_post) > 2:
         coeffs_post = np.polyfit(N_post, K_post, 1)
-        N_fit = np.linspace(N_at_hatching, max(N_obs), 100)
+        N_fit = np.linspace(N_at_hatching, max(N_real), 100)
         K_fit_post = np.polyval(coeffs_post, N_fit)
         ax1.plot(N_fit, K_fit_post, 'g--', linewidth=1.0, alpha=0.9, label='K  N (post-hatch)', zorder=10)
     
@@ -359,7 +359,7 @@ def plot_fig1D(real_growth_curves, model_growth_curves, n_t_s, hatching_t=800):
 
     avg_deg_model = [2*k/n if n > 0 else 0 for n, k in zip(N_model, K_model_mean)]     
     
-    ax2.scatter(N_obs, avg_deg_obs, c='gold', s=20, alpha=0.7, label='Real')
+    ax2.scatter(N_real, avg_deg_obs, c='gold', s=20, alpha=0.7, label='Real')
     ax2.plot(N_model, avg_deg_model, 'r-', linewidth=2, label='ESTG model')
     ax2.axvline(x=N_at_hatching, color='red', linestyle='--', alpha=0.7)
     
@@ -381,11 +381,11 @@ def plot_fig1c(n_t_s, real_growth_curves, model_growth_curves, hatching_t=800, o
     t_steps = n_sorted['birth_time (min)'].to_numpy()
     N = np.arange(1, len(t_steps) + 1)
 
-    K_obs = np.array([K for N, K in real_growth_curves], dtype=float)
+    K_real = np.array([K for N, K in real_growth_curves], dtype=float)
 
     # Decide what K(t) to display prominently
     if model_growth_curves is None:
-        K_main = K_obs
+        K_main = K_real
         K_std = None
         show_obs_ref = False
         main_label = "K"
@@ -404,7 +404,7 @@ def plot_fig1c(n_t_s, real_growth_curves, model_growth_curves, hatching_t=800, o
 
     # K(t)
     if show_obs_ref:
-        axK.plot(t_steps, K_obs, color='0.65', lw=1.5, ls=':', label="K (Real)")
+        axK.plot(t_steps, K_real, color='0.65', lw=1.5, ls=':', label="K (Real)")
     axK.plot(t_steps, K_main, color='tab:blue', lw=2, ls='--', label=main_label)
 
     if K_std is not None:
@@ -505,12 +505,12 @@ def main():
     # Compute growth curve fit quality (as in Table S-II)       
     # N_model = [g[0] for g in model_growth_curves[0]]
     
-    K_obs = [g[1] for g in real_growth_curves]
+    K_real = [g[1] for g in real_growth_curves]
       
     K_model_mean = np.mean([[g[1] for g in curve] for curve in model_growth_curves], axis=0)
 
 
-    xi = np.abs(np.array(K_obs) - K_model_mean) 
+    xi = np.abs(np.array(K_real) - K_model_mean) 
         # That line is computing how far the model’s average number of edges is from the real number of edges.
     print(f"\n    Growth curve fit quality:")
     print(f"    u[ξ(N)] = {np.mean(xi):.1f} (paper: 37.3)")
