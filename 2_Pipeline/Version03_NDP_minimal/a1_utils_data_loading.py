@@ -1,33 +1,10 @@
-"""
-Data loading utilities for C. elegans connectome datasets.
-
-Supports:
-- Cook et al. 2019 format
-- Varshney et al. 2011 format
-"""
-
 import numpy as np
 import pandas as pd
 
-
+############################
+# 1. Data loading - Cook
+############################
 def load_cook_connectome(file_path, sheet_name="hermaphrodite chemical"):
-    """
-    Load the Cook et al. 2019 C. elegans connectome.
-    
-    Parameters
-    ----------
-    file_path : str
-        Path to Excel file
-    sheet_name : str
-        Sheet name containing the adjacency data
-        
-    Returns
-    -------
-    A : np.ndarray
-        (N, N) binary adjacency matrix
-    neurons : list
-        List of N neuron names
-    """
     sheet = pd.read_excel(file_path, sheet_name=sheet_name, header=None)
 
     # Row 2: column neuron labels (postsynaptic targets) starting at column 3
@@ -54,11 +31,16 @@ def load_cook_connectome(file_path, sheet_name="hermaphrodite chemical"):
             cj = col_lab[post]
             val = sheet.iat[ri, cj]
             if isinstance(val, (int, float)) and not pd.isna(val) and val != 0:
-                A[i, j] = 1  # binarize
+                A[i, j] = 1  # binarize step
 
     return A, neurons
+        # A: (N, N) adjacency matrix
+        # neurons: list of N neuron names
 
 
+############################
+# 2. Data loading - Varshney
+############################
 def load_varshney_connectome(file_path, sheet_name="Sheet1", weighted=False):
     """
     Load the Varshney et al. 2011 C. elegans connectome.
@@ -66,13 +48,15 @@ def load_varshney_connectome(file_path, sheet_name="Sheet1", weighted=False):
     Extracts ONLY chemical directed connections (Type = 'S' or 'Sp').
     Skips: R/Rp (reciprocal records), EJ (gap junctions), NMJ (neuromuscular).
     
-    Type meanings:
+    Type meanings (from Varshney paper, self-consistency criteria section):
         S   = Send (monadic chemical synapse: Neuron 1 -> Neuron 2)
         Sp  = Send polyadic (Neuron 1 -> Neuron 2, part of multi-target synapse)
-        R   = Receive (reciprocal record, not a separate edge)
+        R   = Receive (reciprocal record for consistency, not a separate edge)
         Rp  = Receive polyadic (reciprocal record)
-        EJ  = Electrical Junction (gap junction, excluded)
-        NMJ = NeuroMuscular Junction (excluded)
+        EJ  = Electrical Junction (gap junction, bidirectional, excluded)
+        NMJ = NeuroMuscular Junction (to muscles, excluded)
+    
+    Nbr = number of synaptic contacts (multiplicity).
     
     Parameters
     ----------
@@ -93,15 +77,17 @@ def load_varshney_connectome(file_path, sheet_name="Sheet1", weighted=False):
     """
     sheet = pd.read_excel(file_path, sheet_name=sheet_name)
 
-    # Filter to chemical synapse SEND connections only (S and Sp)
+    # Filter to chemical synapse SEND connections only (S and Sp). S  should be monadic, Sp should be polyadic.
+    # Skip R, Rp (reciprocal/receiving connections), EJ (gap junctions), NMJ (neuromuscular)
+    # Note: for understanding where R, Rp, Neuron 1, Nbr, etc come from look at the dataset 
     chem_send = sheet[sheet['Type'].isin(['S', 'Sp'])].copy()
 
-    # Aggregate by neuron pair (sum Nbr for same Neuron 1 -> Neuron 2)
+    # Aggregate by neuron pair (sum Nbr for same Neuron 1 -> Neuron 2), e.g.: just count as 1 connection between 2 neurons even if multiple connections with different weights (so there will be just 1 row per unique directed edge) 
     edges = chem_send.groupby(['Neuron 1', 'Neuron 2'])['Nbr'].sum().reset_index()
 
     # Get all unique neurons (both pre and post)
-    pre_set = set(edges['Neuron 1'].unique())
-    post_set = set(edges['Neuron 2'].unique())
+    pre_set = set(edges['Neuron 1'].unique())   # all presynaptic neurons
+    post_set = set(edges['Neuron 2'].unique())  # all postsynaptic neurons
     all_neurons = pre_set.union(post_set)
     neurons = sorted(all_neurons)
     N = len(neurons)
@@ -109,14 +95,14 @@ def load_varshney_connectome(file_path, sheet_name="Sheet1", weighted=False):
     # Create mapping neuron to index
     neuron_to_idx = {n: i for i, n in enumerate(neurons)}
 
-    # Build adjacency matrix
+    # Building the adjacency matrix and binarizing the connections 
     A = np.zeros((N, N), dtype=np.int32)
-    for _, row in edges.iterrows():
-        i = neuron_to_idx[row['Neuron 1']]
-        j = neuron_to_idx[row['Neuron 2']]
+    for _, row in edges.iterrows():              # row: Neuron 1, Neuron 2, Nbr; row=each edge (see edges)
+        i = neuron_to_idx[row['Neuron 1']]       # i = each presynaptic
+        j = neuron_to_idx[row['Neuron 2']]       # j = each postsynaptic
         if weighted:
             A[i, j] = int(row['Nbr'])
         else:
-            A[i, j] = 1
+            A[i, j] = 1  # same binarize step
 
     return A, neurons
