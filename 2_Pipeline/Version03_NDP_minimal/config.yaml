@@ -1,0 +1,152 @@
+##################################
+# CMA-ES NDP Optimization Config 
+##################################
+
+# Target connectome data
+dataset_type: cook        # 'cook' or 'varshney'
+file_path: "SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx"
+sheet_name: "hermaphrodite chemical"
+
+
+#################
+# Growth mode
+#################
+# Use node-based growth (each node decides to spawn)
+node_based_growth: True
+
+# Whether to co-evolve the initial node embedding
+coevolve_initial_embeddings: True
+
+
+
+#################
+# Graph model options
+#################
+# Whether graph is undirected (False = directed, matching your connectome)
+undirected: False
+
+# Binary connectivity (True = edge weights are 1, no weight MLP needed)
+binary_connectivity: True
+
+# Node embedding dimension
+node_embedding_size: 1
+
+# Whether updates are additive during propagation
+additive_update: False
+
+
+#################
+# Growth model options
+#################
+# Number of growth cycles (how many times growth step is applied)
+number_of_growth_cycles: 12
+
+# Initial sparsity for initial graph (1 = fully connected)
+initial_sparsity: 1
+
+# Extra thinking time on top of diameter during propagation
+network_thinking_time_extra_growth: 0
+
+# Whether to transform embeddings during growth via MLP
+NN_transform_node_embedding_during_growth: True
+
+
+
+
+
+
+
+#################
+# MLPs parameters
+#################
+# MLP hidden layer dimensions for growth model
+mlp_growth_hidden_layers_dims: [2]
+
+# MLP hidden layer dimensions for embedding transformation
+mlp_embedding_transform_hidden_layers_dims: [2]
+
+# Activation function for propagation ('tanh' or null)
+recurrent_activation_function: "tanh"
+
+# Whether transform model uses bias
+transform_model_bias: True
+
+# Whether transform model last layer is activated
+transform_model_last_layer_activated: True
+
+# Whether MLP last layer should be activated (tanh)
+growth_model_last_layer_activated: False
+
+# Whether growth model MLP uses bias
+growth_model_bias: True
+
+
+
+#################
+# Training hyperparameters 
+#################
+# Initial step size (sigma)
+sigma: 1.0
+
+# Minimum standard deviation for parameters 
+minstd: 0.005
+
+# Number of generations (iterations)
+generations: 100
+
+# Population size (candidates per generation)
+popsize: 32
+
+# Whether CMA-ES uses elitism
+CMA_elitist: True
+
+# Initial parameter distribution: 'U[-1,1]' for uniform [-1,1]
+x0_dist: "U[-1,1]"
+
+threads: -1
+
+# Random seed for reproducibility
+seed: 42
+
+##################
+# Fitness Function
+##################
+# Training metric to optimize
+# Options: 'f1', 'edge_jaccard', 'precision', 'recall', 'adjacency_similarity', 'hamming_norm'
+metric: f1
+
+# Number of NDP samples to average per fitness evaluation
+# (accounts for stochasticity in initial graph generation)
+n_samples: 1
+
+# Penalize solutions with wrong network size
+size_mismatch_penalty: 100.0 
+
+# Penalize solutions with too many edges
+edge_penalty: True
+
+# Max edges allowed 
+max_edges_multiplier: 1.1
+
+# Target network size (must match target connectome). Node cap
+max_nodes_cap: False
+target_network_size: 279 # (set to null to auto-detect from target)
+
+# Initial graph size (starting point for growth)
+initial_network_size: 1
+
+
+
+
+
+##################
+# Execution
+##################
+# Print progress every N generations
+print_every: 1
+
+
+##################
+# Save results to file
+##################
+output_dir: "results"
