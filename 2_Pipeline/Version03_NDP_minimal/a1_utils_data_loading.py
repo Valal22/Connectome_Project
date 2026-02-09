@@ -1,3 +1,11 @@
+"""
+Data loading utilities for C. elegans connectome datasets.
+
+Supports:
+- Cook et al. 2019 format
+- Varshney et al. 2011 format
+"""
+
 import numpy as np
 import pandas as pd
 
@@ -37,11 +45,10 @@ def load_cook_connectome(file_path, sheet_name="hermaphrodite chemical"):
         # A: (N, N) adjacency matrix
         # neurons: list of N neuron names
 
-
 ############################
 # 2. Data loading - Varshney
 ############################
-def load_varshney_connectome(file_path, sheet_name="Sheet1", weighted=False):
+def load_varshney_connectome(file_path, sheet_name="Sheet1", weighted=False, allowed_neurons=None, neuron_order=None):
     """
     Load the Varshney et al. 2011 C. elegans connectome.
     
@@ -81,28 +88,66 @@ def load_varshney_connectome(file_path, sheet_name="Sheet1", weighted=False):
     # Skip R, Rp (reciprocal/receiving connections), EJ (gap junctions), NMJ (neuromuscular)
     # Note: for understanding where R, Rp, Neuron 1, Nbr, etc come from look at the dataset 
     chem_send = sheet[sheet['Type'].isin(['S', 'Sp'])].copy()
-
+    
     # Aggregate by neuron pair (sum Nbr for same Neuron 1 -> Neuron 2), e.g.: just count as 1 connection between 2 neurons even if multiple connections with different weights (so there will be just 1 row per unique directed edge) 
     edges = chem_send.groupby(['Neuron 1', 'Neuron 2'])['Nbr'].sum().reset_index()
 
+    if allowed_neurons is not None:
+        allowed_neurons = set(allowed_neurons)
+        edges = edges[edges['Neuron 1'].isin(allowed_neurons) & edges['Neuron 2'].isin(allowed_neurons)]
+
     # Get all unique neurons (both pre and post)
-    pre_set = set(edges['Neuron 1'].unique())   # all presynaptic neurons
-    post_set = set(edges['Neuron 2'].unique())  # all postsynaptic neurons
+    pre_set = set(edges['Neuron 1'].unique())       # all presynaptic neurons
+    post_set = set(edges['Neuron 2'].unique())      # all postsynaptic neurons
     all_neurons = pre_set.union(post_set)
-    neurons = sorted(all_neurons)
-    N = len(neurons)
+
+    if neuron_order is not None:
+        neurons = [n for n in neuron_order if n in all_neurons]
+    else:
+        neurons = sorted(all_neurons)
 
     # Create mapping neuron to index
     neuron_to_idx = {n: i for i, n in enumerate(neurons)}
+    N = len(neurons)
 
     # Building the adjacency matrix and binarizing the connections 
     A = np.zeros((N, N), dtype=np.int32)
-    for _, row in edges.iterrows():              # row: Neuron 1, Neuron 2, Nbr; row=each edge (see edges)
-        i = neuron_to_idx[row['Neuron 1']]       # i = each presynaptic
-        j = neuron_to_idx[row['Neuron 2']]       # j = each postsynaptic
-        if weighted:
-            A[i, j] = int(row['Nbr'])
-        else:
-            A[i, j] = 1  # same binarize step
+    for _, row in edges.iterrows():                                   
+        pre, post = row['Neuron 1'], row['Neuron 2']                  
+        if pre not in neuron_to_idx or post not in neuron_to_idx:    
+            continue
+        i, j = neuron_to_idx[pre], neuron_to_idx[post]
+        A[i, j] = int(row['Nbr']) if weighted else 1                
 
     return A, neurons
+
+
+
+def load_neuron_birth_order(csv_path):
+    """Load neuron labels sorted by birth time (ascending) from 2_celegans277_merged.csv."""
+    df = pd.read_csv(csv_path)
+    if "label" not in df.columns:
+        raise ValueError("CSV must contain a 'label' column.")
+    bt_col = "birth_time (min)" if "birth_time (min)" in df.columns else None
+    if bt_col is None:
+        raise ValueError("CSV must contain a 'birth_time (min)' column.")
+    df = df.sort_values(bt_col, ascending=True)
+    return df["label"].astype(str).tolist()
+
+
+def load_neuron_xy(csv_path):
+    """
+    Load {label: (x, y)} from 2_celegans277_merged.csv.
+    Expects columns: 'label', 'x(mm)', 'y(mm)'.
+    """
+    df = pd.read_csv(csv_path)
+
+    for col in ["label", "x(mm)", "y(mm)"]:
+        if col not in df.columns:
+            raise ValueError(f"CSV must contain column '{col}'")
+
+    labels = df["label"].astype(str).tolist()
+    xs = df["x(mm)"].astype(float).to_numpy()
+    ys = df["y(mm)"].astype(float).to_numpy()
+
+    return {lab: (x, y) for lab, x, y in zip(labels, xs, ys)}

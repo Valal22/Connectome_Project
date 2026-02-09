@@ -1,0 +1,64 @@
+target:
+  dataset_type: varshney
+  nodes: 80
+  edges: 255
+  density: 0.03984375
+  eval_metrics:
+    nodes: 24
+    edges: 53
+    avg_clustering: 0.15649801587301587
+    avg_path_length: 4.36231884057971
+    small_world_coeff: 2.6093127781009273
+    n_hubs: 3
+optimization:
+  method: NDP
+  metric: f1
+  generations: 500
+  popsize: 128
+  seed: 40
+  nb_parameters: 31
+  growth_cycles: 9
+  phase3_edge_mode: global_topE
+ndp_gen1:
+  generation: 1
+  nodes: 2
+  edges: 2
+  train_metrics:
+    status: shape_mismatch
+    target_shape:
+    - 80
+    - 80
+    model_shape:
+    - 2
+    - 2
+ndp_gen5:
+  generation: 5
+  nodes: 2
+  edges: 2
+  train_metrics:
+    status: shape_mismatch
+    target_shape:
+    - 80
+    - 80
+    model_shape:
+    - 2
+    - 2
+  eval_metrics:
+    status: compute_error
+    error: DiGraph has fewer than four nodes.
+ndp_best:
+  generation: 88
+  nodes: 80
+  edges: 1458
+  train_metrics:
+    hamming_norm: 0.25109375
+    adjacency_similarity: 0.74890625
+    edge_jaccard: 0.031927710843373494
+    precision: 0.03635116598079561
+    recall: 0.20784313725490197
+    f1: 0.06187974314068885
+    status: ok
+  eval_metrics:
+    status: compute_error
+    error: Maximum number of swap attempts (1458001) exceeded before desired swaps
+      achieved (14580).

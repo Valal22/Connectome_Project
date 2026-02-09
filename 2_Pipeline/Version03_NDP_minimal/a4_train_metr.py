@@ -14,6 +14,12 @@ def compute_train_metrics(A_target, A_model, verbose=True):
     y_target = A_target.astype(int).ravel()
     y_model = A_model.astype(int).ravel()
 
+    # if verbose:
+        # print(f"Target adjacency:\n{A_target}")
+        # print(f"Target flattened: {y_target}")
+        # print(f"Model adjacency:\n{A_model}")
+        # print(f"Model flattened: {y_model}")
+
     # 1) Hamming (matrix-level)
     hamming_norm = hamming_loss(y_target, y_model)
     n_entries = y_target.size
@@ -26,7 +32,7 @@ def compute_train_metrics(A_target, A_model, verbose=True):
     adjacency_similarity = 1.0 - hamming_norm
 
     # 2) Jaccard over edges
-    edge_jacc = jaccard_score(y_target, y_model)
+    edge_jacc = jaccard_score(y_target, y_model, zero_division=0)
 
     # 3) Other edge metrics
     precision = precision_score(y_target, y_model, zero_division=0)

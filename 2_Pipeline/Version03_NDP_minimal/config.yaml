@@ -1,16 +1,16 @@
-##################################
+# ============================================================################
 # CMA-ES NDP Optimization Config 
-##################################
+# ============================================================################
 
 # Target connectome data
 dataset_type: cook        # 'cook' or 'varshney'
-file_path: "SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx"
-sheet_name: "hermaphrodite chemical"
+file_path: SI_5_Connectome_adjacency_matrices_corrected_July_2020.xlsx
+sheet_name: hermaphrodite chemical
 
 
-#################
+# ============================================================
 # Growth mode
-#################
+# ============================================================
 # Use node-based growth (each node decides to spawn)
 node_based_growth: True
 
@@ -18,10 +18,9 @@ node_based_growth: True
 coevolve_initial_embeddings: True
 
 
-
-#################
+# ============================================================
 # Graph model options
-#################
+# ============================================================
 # Whether graph is undirected (False = directed, matching your connectome)
 undirected: False
 
@@ -35,11 +34,11 @@ node_embedding_size: 1
 additive_update: False
 
 
-#################
+# ============================================================
 # Growth model options
-#################
+# ============================================================
 # Number of growth cycles (how many times growth step is applied)
-number_of_growth_cycles: 12
+number_of_growth_cycles: 9
 
 # Initial sparsity for initial graph (1 = fully connected)
 initial_sparsity: 1
@@ -52,18 +51,14 @@ NN_transform_node_embedding_during_growth: True
 
 
 
-
-
-
-
-#################
+# ============================================================
 # MLPs parameters
-#################
+# ============================================================
 # MLP hidden layer dimensions for growth model
-mlp_growth_hidden_layers_dims: [2]
+mlp_growth_hidden_layers_dims: [4, 2]
 
 # MLP hidden layer dimensions for embedding transformation
-mlp_embedding_transform_hidden_layers_dims: [2]
+mlp_embedding_transform_hidden_layers_dims: [1]
 
 # Activation function for propagation ('tanh' or null)
 recurrent_activation_function: "tanh"
@@ -82,35 +77,40 @@ growth_model_bias: True
 
 
 
-#################
+
+# ============================================================
 # Training hyperparameters 
-#################
+# ============================================================
 # Initial step size (sigma)
-sigma: 1.0
+sigma: 1.0 
 
 # Minimum standard deviation for parameters 
 minstd: 0.005
 
 # Number of generations (iterations)
-generations: 100
+generations: 500 # 3000
 
 # Population size (candidates per generation)
-popsize: 32
+popsize: 128
 
 # Whether CMA-ES uses elitism
 CMA_elitist: True
 
 # Initial parameter distribution: 'U[-1,1]' for uniform [-1,1]
-x0_dist: "U[-1,1]"
+x0_dist: U[-1,1] # U[0,1]
 
 threads: -1
 
 # Random seed for reproducibility
-seed: 42
+seed: 33
 
-##################
+
+
+
+
+# ============================================================
 # Fitness Function
-##################
+# ============================================================
 # Training metric to optimize
 # Options: 'f1', 'edge_jaccard', 'precision', 'recall', 'adjacency_similarity', 'hamming_norm'
 metric: f1
@@ -119,34 +119,98 @@ metric: f1
 # (accounts for stochasticity in initial graph generation)
 n_samples: 1
 
-# Penalize solutions with wrong network size
-size_mismatch_penalty: 100.0 
 
-# Penalize solutions with too many edges
-edge_penalty: True
-
-# Max edges allowed 
-max_edges_multiplier: 1.1
 
 # Target network size (must match target connectome). Node cap
 max_nodes_cap: False
-target_network_size: 279 # (set to null to auto-detect from target)
+target_network_size: 80 # (set to null to auto-detect from target)
+eval_first_n: 80
+
 
 # Initial graph size (starting point for growth)
 initial_network_size: 1
 
 
 
-
-
-##################
+# ============================================================
 # Execution
-##################
+# ============================================================
 # Print progress every N generations
 print_every: 1
 
 
-##################
+# ============================================================
 # Save results to file
-##################
+# ============================================================
 output_dir: "results"
+birth_csv_path: 2_celegans277_merged.csv
+
+
+
+
+# Edge MLP architecture (Not used here)
+mlp_edge_hidden_layers_dims: [1]
+edge_model_last_layer_activated: False
+edge_model_bias: True
+
+
+# ============================================================
+# LOSS FUNCTION WEIGHTS
+# ============================================================
+all_pen: False 
+
+
+# Penalize solutions with not exact nodes
+node_penalty: True
+
+# Penalize solutions with not exact (range) edges
+edge_penalty: False
+
+w_node: 9 # Default: 9
+w_edge: 250 # Default: 250
+w_wiring: 1.0 # Default: 1.0 
+
+pen_same_scale: True 
+
+
+
+
+# ============================================================
+# TIMING 
+# ============================================================
+timing: true
+timing_every: 1
+timing_verbose: False
+timing_worker: False
+per_candidate_print: False
+count_ndp_parameters_prints: True
+
+
+
+
+
+# ============================================================
+# W&B plots and beyond
+# ============================================================
+use_wandb: True   # When set to True > type "wandb login" on the terminal
+wandb_project: original_wiring_N_loss_2
+wandb_entity: null   # or your username/team
+wandb_run_name: null
+
+
+
+
+
+
+# ============================================================
+# DEBUGGING
+# ============================================================
+debug_best_candidate: False
+debug_cycles: 3
+
+target_n_order: False 
+n_while_generated: False
+plots_and_loc_check: False
+plots: False
+
+

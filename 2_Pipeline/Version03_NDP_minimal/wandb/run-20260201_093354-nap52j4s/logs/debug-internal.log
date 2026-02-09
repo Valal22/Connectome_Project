@@ -1,0 +1,11 @@
+{"time":"2026-02-01T09:33:57.0009956+01:00","level":"INFO","msg":"stream: starting","core version":"0.24.0"}
+{"time":"2026-02-01T09:34:00.4043027+01:00","level":"INFO","msg":"stream: created new stream","id":"nap52j4s"}
+{"time":"2026-02-01T09:34:00.4050643+01:00","level":"INFO","msg":"handler: started","stream_id":"nap52j4s"}
+{"time":"2026-02-01T09:34:00.4050643+01:00","level":"INFO","msg":"stream: started","id":"nap52j4s"}
+{"time":"2026-02-01T09:34:00.4050643+01:00","level":"INFO","msg":"writer: started","stream_id":"nap52j4s"}
+{"time":"2026-02-01T09:34:00.4050643+01:00","level":"INFO","msg":"sender: started","stream_id":"nap52j4s"}
+{"time":"2026-02-01T09:38:55.6893485+01:00","level":"INFO","msg":"stream: closing","id":"nap52j4s"}
+{"time":"2026-02-01T09:39:01.6258933+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2026-02-01T09:39:01.8338166+01:00","level":"INFO","msg":"handler: closed","stream_id":"nap52j4s"}
+{"time":"2026-02-01T09:39:01.8341226+01:00","level":"INFO","msg":"sender: closed","stream_id":"nap52j4s"}
+{"time":"2026-02-01T09:39:01.8341226+01:00","level":"INFO","msg":"stream: closed","id":"nap52j4s"}

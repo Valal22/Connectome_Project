@@ -1,0 +1,65 @@
+target:
+  dataset_type: varshney
+  nodes: 80
+  edges: 255
+  density: 0.03984375
+  eval_metrics:
+    nodes: 24
+    edges: 53
+    avg_clustering: 0.15649801587301587
+    avg_path_length: 4.36231884057971
+    small_world_coeff: 2.538054374904978
+    n_hubs: 3
+optimization:
+  method: NDP
+  metric: f1
+  generations: 500
+  popsize: 128
+  seed: 39
+  nb_parameters: 17
+  growth_cycles: 9
+  phase3_edge_mode: global_topE
+ndp_gen1:
+  generation: 1
+  nodes: 4
+  edges: 11
+  train_metrics:
+    status: shape_mismatch
+    target_shape:
+    - 80
+    - 80
+    model_shape:
+    - 4
+    - 4
+ndp_gen5:
+  generation: 5
+  nodes: 64
+  edges: 1997
+  train_metrics:
+    status: shape_mismatch
+    target_shape:
+    - 80
+    - 80
+    model_shape:
+    - 64
+    - 64
+  eval_metrics:
+    status: compute_error
+    error: Maximum number of swap attempts (1997001) exceeded before desired swaps
+      achieved (19970).
+ndp_best:
+  generation: 11
+  nodes: 80
+  edges: 2109
+  train_metrics:
+    hamming_norm: 0.3415625
+    adjacency_similarity: 0.6584375
+    edge_jaccard: 0.03912087912087912
+    precision: 0.04220009483167378
+    recall: 0.34901960784313724
+    f1: 0.07529610829103214
+    status: ok
+  eval_metrics:
+    status: compute_error
+    error: Maximum number of swap attempts (2109001) exceeded before desired swaps
+      achieved (21090).

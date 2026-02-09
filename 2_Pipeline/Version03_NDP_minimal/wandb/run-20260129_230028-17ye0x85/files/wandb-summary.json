@@ -1,0 +1,1 @@
+{"edge_jaccard":0.04888888888888889,"_timestamp":1.7697240902279644e+09,"final/best_gen":22,"gen":500,"_step":500,"edges":210,"sigma":7.047899803878495e-08,"recall":0.4230769230769231,"dataset_type":"varshney","best_loss":3494.369670286017,"nodes":24,"f1":0.09322033898305085,"_runtime":66.1036505,"_wandb":{"runtime":66},"precision":0.05238095238095238}

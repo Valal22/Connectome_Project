@@ -14,7 +14,6 @@ def adjacency_to_digraph(A, neurons):
                 G.add_edge(neurons[i], neurons[j])
     return G
 
-
 ###############################################
 # Clustering coefficient (according to Varshney)
 ###############################################
@@ -49,18 +48,14 @@ def avg_clustering_varshney(G):
     total = sum(varshney_clustering_coefficient(G, n) for n in nodes)
     return total / len(nodes)
 
-
 ###############################################
 # Getting the Largest Strongly Connected Component (l_scc)
 ###############################################
 def get_largest_scc(G):
-    """Get the largest strongly connected component."""
     if nx.is_strongly_connected(G):
         return G.copy()
     largest_scc = max(nx.strongly_connected_components(G), key=len)
     return G.subgraph(largest_scc).copy()
-
-
 
 ###############################################
 # Small-world coefficient (according to Varshney)
@@ -86,15 +81,16 @@ def compute_sw_coeff(G, n_rand=100, verbose=True):
     C_rand_list = []
     n_swaps = G.number_of_edges() * 10
     
-    for i in range(n_rand):     # Montecarlo over n_rand randomized graphs (in the original paper they used 1000 times)
+    for i in range(n_rand):      # Montecarlo over n_rand randomized graphs (in the original paper they used 1000 times)
         G_rand = G.copy()
+
         try:
             # Try different function names depending on NetworkX version but they do the same thing: randomize the edges keeping the degree sequence 
             nx.algorithms.swap.directed_edge_swap(G_rand, nswap=n_swaps, max_tries=n_swaps*100, seed=10+i)
         except AttributeError:
             # Fall back to double_edge_swap (works on DiGraphs in some versions)
             nx.double_edge_swap(G_rand, nswap=n_swaps, max_tries=n_swaps*100, seed=10+i)
-        
+
         G_rand_scc = get_largest_scc(G_rand)
         if G_rand_scc.number_of_nodes() > 1:
             L_rand_list.append(nx.average_shortest_path_length(G_rand_scc))
@@ -111,13 +107,11 @@ def compute_sw_coeff(G, n_rand=100, verbose=True):
     
     return S
 
-
-
 ###############################################
 # Computing evaluation metrics
 ###############################################
 def compute_eval_metrics(G, verbose=True):
-    G_l_scc = get_largest_scc(G)    # G_l_scc is the largest strongly connected component of whatever graph G
+    G_l_scc = get_largest_scc(G)         # G_l_scc is the largest strongly connected component of whatever graph G
 
     if verbose:
         print(f"Largest SCC: {len(G_l_scc)} nodes, {G_l_scc.number_of_edges()} edges")

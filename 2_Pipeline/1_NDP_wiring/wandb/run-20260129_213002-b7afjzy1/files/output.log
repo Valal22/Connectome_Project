@@ -1,0 +1,41 @@
+All neurons ordered are: ['PVR', 'RMEV', 'IL2DL', 'AWBR', 'ADFR', 'IL2DR', 'ADFL', 'AWBL', 'URYDL', 'AIML', 'DVA', 'URYDR', 'IL2VL', 'IL2L', 'AVDL', 'PHAL', 'AVJL', 'DB1', 'RMDDL', 'AVDR', 'AVL', 'PVT', 'AVKL', 'PHAR', 'RIH', 'RIPL', 'AVJR', 'IL2VR', 'DB4', 'AVKR', 'RIS', 'ADLL', 'BAGL', 'SAAVL', 'AWCL', 'DB3', 'URBL', 'IL2R', 'PVPL', 'SIAVL', 'SABD', 'URBR', 'AIBR', 'ADLR', 'RMDDR', 'AWCR', 'URYVR', 'RIBL', 'URYVL', 'ASHL', 'DA6', 'DA9', 'SAAVR', 'DB5', 'SAADL', 'DA1', 'SIAVR', 'AIMR', 'AVG', 'DA8', 'RIR', 'BAGR', 'SMDVR', 'RMDVR', 'SAADR', 'DA7', 'PDA', 'PVPR', 'RIVR', 'AVAR', 'SIBDL', 'RMDVL', 'AVAL', 'RMDR', 'AFDR', 'AVBR', 'SMBVL', 'AFDL', 'RMDL', 'DB2', 'SIADL', 'SIBVL', 'SIADR', 'ASHR', 'SIBVR', 'ALA', 'RMED', 'SMBVR', 'SMDDL', 'SIBDR', 'RIBR', 'URAVL', 'AIAL', 'DB6', 'RIPR', 'RMGR', 'AVBL', 'RIVL', 'SMDDR', 'AIYR', 'DB7', 'RMGL', 'AIAR', 'DD1', 'AWAR', 'ASGR', 'RIGL', 'RIML', 'DD2', 'RIGR', 'URAVR', 'AVEL', 'AWAL', 'ASGL', 'RMEL', 'RIAR', 'RMER', 'DA4', 'DA2', 'PVQR', 'AVER', 'PVQL', 'RIMR', 'RIAL', 'DD3', 'DA3', 'DD5', 'DA5', 'URADR', 'URADL', 'DD6', 'DD4', 'AINR', 'AINL', 'AVHR', 'AVHL', 'DVC', 'RID', 'ASER', 'ASEL', 'ASJR', 'AUAR', 'AUAL', 'ASJL', 'ASKL', 'ASKR', 'CEPDR', 'URXR', 'CEPDL', 'URXL', 'IL1DR', 'IL1L', 'IL1DL', 'ASIR', 'SMBDL', 'PHBR', 'HSNR', 'ASIL', 'CEPVL', 'SMBDR', 'OLLR', 'OLQDR', 'IL1VR', 'OLQDL', 'PHBL', 'RICL', 'HSNL', 'IL1VL', 'OLLL', 'CEPVR', 'OLQVL', 'IL1R', 'OLQVR', 'RIFL', 'SABVL', 'SABVR', 'RICR', 'RIFR', 'ADAR', 'FLPR', 'AIZR', 'ADEL', 'ADAL', 'ADER', 'AIZL', 'FLPL', 'LUAL', 'PVCL', 'ALMR', 'BDUR', 'PVCR', 'LUAR', 'BDUL', 'ALML', 'ALNR', 'PLMR', 'ALNL', 'PLML', 'PQR', 'AQR', 'PVM', 'SDQR', 'AVM', 'SDQL', 'PVWR', 'PVWL', 'VA1', 'VD1', 'RMHR', 'AS1', 'VB2', 'VD2', 'RMHL', 'VD3', 'AS2', 'PHCR', 'PHCL', 'VC3', 'PLNL', 'PLNR', 'AS4', 'AS3', 'VD7', 'DVB', 'VD5', 'VD6', 'VD4', 'VC4', 'VC2', 'AS5', 'AS6', 'VC1', 'VD9', 'VC5', 'VD10', 'VD8', 'AS8', 'VD11', 'AVFL', 'VA2', 'AVFR', 'AS7', 'VB1', 'VD13', 'AS9', 'VB3', 'VD12', 'AS10', 'AS11', 'PDB', 'VA6', 'VA4', 'VB9', 'VB5', 'VB4', 'VA3', 'VA8', 'VB7', 'VB6', 'VA5', 'VB10', 'VB11', 'VB8', 'VA7', 'VA10', 'VA9', 'VA12', 'VA11', 'PDER', 'PDEL', 'PVDR', 'PVNR', 'PVDL', 'PVNL', 'RMFR', 'RMFL']
+Evaluated neurons ordered are: ['PVR', 'RMEV', 'IL2DL', 'AWBR', 'ADFR', 'IL2DR', 'ADFL', 'AWBL', 'URYDL', 'AIML', 'DVA', 'URYDR', 'IL2VL', 'IL2L', 'AVDL', 'PHAL', 'AVJL', 'DB1', 'RMDDL', 'AVDR', 'AVL', 'PVT', 'AVKL', 'PHAR', 'RIH', 'RIPL', 'AVJR', 'IL2VR', 'DB4', 'AVKR', 'RIS', 'ADLL', 'BAGL', 'SAAVL', 'AWCL', 'DB3', 'URBL', 'IL2R', 'PVPL', 'SIAVL']
+
+Target connectome: 40 nodes, 64 edges, density=0.0400
+  Out-degree: min=0, max=6, mean=1.60
+  In-degree:  min=0, max=7, mean=1.60
+Largest SCC: 6 nodes, 9 edges
+Degree threshold for hubs (95th percentile): 4.5
+Hub neurons: ['PVR']
+G_C: 0.0278, G_rand_C: 0.0228, C_ratio: 1.2195
+G_L: 2.4333, G_rand_L: 2.0302, L_ratio: 0.8343
+
+NDP parameters breakdown:
+  Embedding: 1
+  Growth MLP: 4
+  Transform MLP: 4
+  Edge MLP: 5
+  TOTAL: 14
+============================================================
+CMA-ES NDP Optimization
+============================================================
+  Target: 40 nodes, 64 edges
+  Parameters: 14
+  Metric: f1
+  Population size: 128
+  Max generations: 500
+  Samples per eval: 1
+============================================================
+  Windows detected - using spawn multiprocessing with 24 workers
+  Using 24 cores (parallel)
+Traceback (most recent call last):
+  File "C:\Users\Valal\Desktop\DesktopMarkDownFiles\Alessandro\PhD_ComputerScienceGSSI\4_PhD\5.0_Pipelines\Pipeline_Version04_NDP_improv5_ResultsComp\1_N_only\1_NDP_wiring\a0_main.py", line 336, in <module>
+    Results, output_path = run_optimization(config)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Valal\Desktop\DesktopMarkDownFiles\Alessandro\PhD_ComputerScienceGSSI\4_PhD\5.0_Pipelines\Pipeline_Version04_NDP_improv5_ResultsComp\1_N_only\1_NDP_wiring\a0_main.py", line 173, in run_optimization
+    cmaes_result = run_cmaes(A_target, config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Valal\Desktop\DesktopMarkDownFiles\Alessandro\PhD_ComputerScienceGSSI\4_PhD\5.0_Pipelines\Pipeline_Version04_NDP_improv5_ResultsComp\1_N_only\1_NDP_wiring\a5_cmaes_optimizer.py", line 414, in run_cmaes
+    "nodes": int(n_nodes),
+                 ^^^^^^^
+UnboundLocalError: cannot access local variable 'n_nodes' where it is not associated with a value

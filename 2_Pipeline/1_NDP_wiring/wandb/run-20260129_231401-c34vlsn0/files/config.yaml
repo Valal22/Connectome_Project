@@ -1,0 +1,190 @@
+_wandb:
+    value:
+        cli_version: 0.24.0
+        e:
+            5eb1g5sk8nhwue6oxa1b3kkw1f6zq5i3:
+                args:
+                    - --config
+                    - config.yaml
+                    - --dataset-type
+                    - varshney
+                    - --file-path
+                    - Varshney_NeuronConnectFormatted.xlsx
+                    - --sheet-name
+                    - Sheet1
+                codePath: a0_main.py
+                codePathLocal: a0_main.py
+                cpu_count: 24
+                cpu_count_logical: 24
+                cudaVersion: "13.1"
+                disk:
+                    /:
+                        total: "1021821579264"
+                        used: "517745221632"
+                email: ale96aq@gmail.com
+                executable: C:\Users\Valal\AppData\Local\Programs\Python\Python312\python.exe
+                gpu: NVIDIA GeForce RTX 5080 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 7680
+                      memoryTotal: "17094934528"
+                      name: NVIDIA GeForce RTX 5080 Laptop GPU
+                      uuid: GPU-f36bb150-f6dc-8ab2-4628-90d5ea327bc3
+                host: Valal7_Laptop
+                memory:
+                    total: "33752997888"
+                os: Windows-11-10.0.26100-SP0
+                program: C:\Users\Valal\Desktop\DesktopMarkDownFiles\Alessandro\PhD_ComputerScienceGSSI\4_PhD\5.0_Pipelines\Pipeline_Version04_NDP_improv5_ResultsComp\1_N_only\1_NDP_wiring\a0_main.py
+                python: CPython 3.12.10
+                root: C:\Users\Valal\Desktop\DesktopMarkDownFiles\Alessandro\PhD_ComputerScienceGSSI\4_PhD\5.0_Pipelines\Pipeline_Version04_NDP_improv5_ResultsComp\1_N_only\1_NDP_wiring
+                startedAt: "2026-01-29T22:14:01.811410Z"
+                writerId: 5eb1g5sk8nhwue6oxa1b3kkw1f6zq5i3
+        m: []
+        python_version: 3.12.10
+        t:
+            "1":
+                - 1
+                - 5
+                - 53
+            "2":
+                - 1
+                - 5
+                - 53
+            "3":
+                - 16
+                - 61
+                - 62
+            "4": 3.12.10
+            "5": 0.24.0
+            "8":
+                - 3
+            "12": 0.24.0
+            "13": windows-amd64
+CMA_elitist:
+    value: true
+NN_transform_node_embedding_during_growth:
+    value: true
+additive_update:
+    value: false
+all_pen:
+    value: false
+binary_connectivity:
+    value: true
+birth_csv_path:
+    value: 2_celegans277_merged.csv
+coevolve_initial_embeddings:
+    value: true
+count_ndp_parameters_prints:
+    value: true
+dataset_type:
+    value: varshney
+default_neuron_class:
+    value: interneuron
+edge_model_bias:
+    value: true
+edge_model_last_layer_activated:
+    value: false
+edge_penalty:
+    value: false
+eval_first_n:
+    value: 40
+file_path:
+    value: Varshney_NeuronConnectFormatted.xlsx
+generations:
+    value: 500
+growth_model_bias:
+    value: true
+growth_model_last_layer_activated:
+    value: false
+initial_network_size:
+    value: 1
+initial_sparsity:
+    value: 1
+max_nodes_cap:
+    value: false
+metric:
+    value: f1
+minstd:
+    value: 0.005
+mlp_edge_hidden_layers_dims:
+    value:
+        - 1
+mlp_embedding_transform_hidden_layers_dims:
+    value:
+        - 1
+mlp_growth_hidden_layers_dims:
+    value:
+        - 1
+n_samples:
+    value: 1
+n_while_generated:
+    value: false
+network_thinking_time_extra_growth:
+    value: 0
+node_based_growth:
+    value: true
+node_embedding_size:
+    value: 2
+node_penalty:
+    value: true
+number_of_growth_cycles:
+    value: 7
+output_dir:
+    value: results
+pen_same_scale:
+    value: true
+per_candidate_print:
+    value: false
+plots:
+    value: true
+plots_and_loc_check:
+    value: true
+popsize:
+    value: 128
+print_every:
+    value: 1
+recurrent_activation_function:
+    value: tanh
+seed:
+    value: 42
+sheet_name:
+    value: Sheet1
+sigma:
+    value: 1
+target_n_order:
+    value: true
+target_network_size:
+    value: 40
+threads:
+    value: -1
+timing:
+    value: true
+timing_every:
+    value: 1
+timing_verbose:
+    value: false
+timing_worker:
+    value: false
+transform_model_bias:
+    value: true
+transform_model_last_layer_activated:
+    value: true
+undirected:
+    value: false
+use_wandb:
+    value: true
+w_edge:
+    value: 250
+w_node:
+    value: 9
+w_wiring:
+    value: 1
+wandb_entity:
+    value: null
+wandb_project:
+    value: original_wiring
+wandb_run_name:
+    value: null
+x0_dist:
+    value: U[-1,1]

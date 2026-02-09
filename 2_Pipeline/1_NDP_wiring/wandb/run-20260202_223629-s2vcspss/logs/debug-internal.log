@@ -1,0 +1,6 @@
+{"time":"2026-02-02T22:36:32.2518643+01:00","level":"INFO","msg":"stream: starting","core version":"0.24.0"}
+{"time":"2026-02-02T22:36:35.7867654+01:00","level":"INFO","msg":"stream: created new stream","id":"s2vcspss"}
+{"time":"2026-02-02T22:36:35.7872692+01:00","level":"INFO","msg":"handler: started","stream_id":"s2vcspss"}
+{"time":"2026-02-02T22:36:35.7872692+01:00","level":"INFO","msg":"stream: started","id":"s2vcspss"}
+{"time":"2026-02-02T22:36:35.7872692+01:00","level":"INFO","msg":"writer: started","stream_id":"s2vcspss"}
+{"time":"2026-02-02T22:36:35.7878044+01:00","level":"INFO","msg":"sender: started","stream_id":"s2vcspss"}
