@@ -1,0 +1,251 @@
+# =====================================================================
+# Run, logging, and dataset
+# =====================================================================
+seed: 36
+
+use_wandb: True
+wandb_project: bio_witv_40
+wandb_entity: null   
+wandb_run_name: null
+
+dataset_type: witv
+sheet_name: Dataset7
+file_path: witv_merged.csv
+
+output_dir: results
+
+print_every: 1
+
+# =====================================================================
+# Target evaluation setup
+# =====================================================================
+eval_first_n: 180 # 180 # 180 # 90 # 40 # 90 
+target_network_size: null
+
+compute_eval_metrics: False
+
+
+# =====================================================================
+# Initial graph setup
+# =====================================================================
+initial_network_size: 1
+initial_sparsity: 1 # 1: means 100% density, so 0.1 means 10% density
+undirected: False
+
+
+# =====================================================================
+# Embedding mode and class prototypes
+# =====================================================================
+meta_embedding_mode: class_only          # class_only | transc_only | coords_only | hybrid
+
+class_emb: True 
+embedding_mode: fixed_only           # fixed_only | dynamic_only 
+fixed_embedding_size: 16     # use 16 for fixed_only (and dynamic_embedding_size=0) !Not null!
+dynamic_embedding_size: 0     # use 16 for dynamic_only (and fixed_embedding_size=0)
+
+birth_noise: True 
+node_emb_birth_uniform_range: 0.25
+
+# =====================================================================
+# Fixed feature sources
+# =====================================================================
+
+
+use_fixed_feats: True 
+process_altogether: True  
+
+coords_emb: True
+norm_and_stand: False  # Bad 
+stand_coords: False  # Good 
+process_all_feats: True     
+
+
+transcr_emb: False 
+
+# Paper: Baruch 2008
+# transc_genes: [hmr-1, unc-55, akt-1, akt-2, npr-1, cdh-3, glr-1, osm-6, unc-4]  # Null 
+
+# Paper: Kaufman 2006
+transc_genes: [ceh-23, che-2, che-3, gpa-3, kin-29, kvs-1, lin-11, mgl-2, mps-1, osm-3, osm-9, pef-1, sad-1, sax-3, syg-1, syg-2, tax-2, tax-4, unc-4, unc-5, unc-6, unc-34, unc-37]
+# Filtered to 16 genes
+# transc_genes: [
+#     'kvs-1',
+#     'lin-11',
+#     'mps-1',
+#     'syg-1',
+#     'che-3',
+#     'unc-4',
+#     'unc-5',
+#     'ceh-23',
+#     'syg-2',
+#     'unc-6',
+#     'gpa-3',
+#     'osm-3',
+#     'tax-2',
+#     'sad-1',
+#     'sax-3',
+#     'pef-1',
+# ]
+
+
+# Merging Baruch and Kaufman
+# transc_genes: [ceh-23, che-2, che-3, gpa-3, kin-29, kvs-1, lin-11, mgl-2, mps-1, osm-3, osm-6, osm-9, pef-1, sad-1, sax-3, syg-1, syg-2, tax-2, tax-4, unc-4, unc-5, unc-6, unc-34, unc-37, unc-55, akt-1, akt-2, npr-1, cdh-3, glr-1]
+
+
+
+
+hybrid_emb: False
+
+
+# ======================================================================
+# Initial embedding source
+# =====================================================================
+coevolve_initial_embeddings: False
+initial_embeddings_from_class: True 
+initial_embeddings_from_coords: False
+initial_embeddings_from_tanscr: False
+
+
+# =====================================================================
+# Growth schedule
+# =====================================================================
+number_of_growth_cycles: 10 # 8 # 6 # 18 # 22 # 7 # 8 # 8 
+
+default_growth: True
+
+controlled_node_addition: False  
+max_new_nodes_per_cycle: 10
+
+
+# =====================================================================
+# Message passing thinking time 
+# =====================================================================
+default_thinking_time: True
+network_thinking_time_extra_growth: 0
+
+# =====================================================================
+# Message passing dynamics
+# =====================================================================
+recurrent_activation_function: tanh
+apply_activation_in_mp: False
+
+additive_update: True
+
+GRAND_mp: True 
+mp_source_alpha: 0.5 
+
+
+L2_norm_mp: False
+div_mp: False
+fixed_scale_divisor: 4.0 
+
+
+
+
+
+
+
+# =====================================================================
+# Growth MLP architecture
+# =====================================================================
+mlp_growth_hidden_layers_dims: [8, 4] # [32, 16, 8] # [64, 32, 16] # [1] # [8]      # TRY [42, 42] or TRY just [64]
+mlp_embedding_transform_hidden_layers_dims:  [8, 4] # [32, 16, 8] # [64, 32, 16] # [1] # [8]      # TRY just [1] 
+growth_model_last_layer_activated: False
+growth_model_bias: True
+
+
+# =====================================================================
+# Edge MLP architecture and edge sampling 
+# =====================================================================
+mlp_edge_hidden_layers_dims: [16, 8]  # [64, 32] # # [64, 32, 16] # [16, 8] # [128, 64, 32, 16] # [16, 8, 4] # [64, 32, 16] #  # [1]      # TRY [64] 
+edge_model_last_layer_activated: False
+edge_model_bias: True
+
+
+
+use_logit_threshold_edges: True # False # True 
+edge_logit_threshold: 0.0 
+
+edge_pair_source_chunk_size: 128 # 32
+pair_distance_feat: True
+
+store_soft_P: True # True is required for metrics that use soft probabilities (e.g. soft_edge_balanced_loss)
+
+
+# =====================================================================
+# Loss and fitness configuration
+# =====================================================================
+metric: soft_edge_balanced_loss
+lam_fp: 0.09 # 0.1 # 0.03 allows denser but also encourages exploration # 0.1 -> allows denser; 0.5 -> discourages extra edges more
+n_samples: 1
+node_penalty: True 
+edge_penalty: False
+
+w_edgecount: 0.01 # 300 # If norm: 0.01 otherwise 300.0 
+
+edge_count_min_frac: 0.85
+edge_count_max_frac: 1.15
+
+
+# =====================================================================
+# NDP parameter accounting
+# =====================================================================
+count_ndp_parameters_prints: True
+
+
+
+# =====================================================================
+# CMA-ES optimizer
+# =====================================================================
+sigma: 0.1 # 1.0 # 0.5    # TRY 0.1
+minstd: 1e-8 # 1e-3 # 0.05 # 0.005
+popsize: 256 # 512 # 256 # 256    
+generations: 2000 # 500 # 250
+CMA_elitist: False
+x0_dist: U[-1,1]
+threads: -1 
+growth_bias_init: 1.0
+
+
+
+
+
+
+
+
+# =====================================================================
+# CMA-ES restart policy
+# =====================================================================
+use_restarts: False
+restart_warmup: 400          # gens to wait before any restart can fire
+restart_patience: 150        # gens of stagnation needed to trigger restart
+restart_rel_tol: 0.01 # 0.005       # min fractional improvement of best_loss over the patience window
+restart_max_count: 20         # hard cap on number of restarts
+restart_from_best: False      # True: warm-start from best_params; False: fresh x0_sampling
+restart_sigma: 0.1           # sigma to reinitialize at each restart (same as the initial sigma)
+
+
+
+
+
+
+
+
+
+
+# =====================================================================
+# Pruning model
+# =====================================================================
+pruning: False 
+
+mlp_prune_hidden_layers_dims: [16, 8] # [16, 8]
+prune_model_last_layer_activated: false
+prune_model_bias: true
+
+prune_selection_mode: threshold     # threshold | bernoulli
+prune_logit_threshold: 0.0
+
+
+
+
+
