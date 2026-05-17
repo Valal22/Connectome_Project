@@ -4,7 +4,8 @@
 This repository trains and evaluates Neural Developmental Program (NDP) that grows a directed graph. The model starts from an initial graph, updates node embeddings through message passing, predicts node birth events, and wires edges using learned MLP rules. The target graph is built from C.elegans connectome data and evaluated with graph-level and edge-level metrics.
 
 ## Files
-- Guidelines for folder Version10_NDP_connectome
+Guidelines for folder Version10_NDP_connectome
+
 | File | Purpose |
 |---|---|
 | `a00_main.py` | Main entry point. Loads config/data, prepares embeddings, runs optimization, saves outputs. |
