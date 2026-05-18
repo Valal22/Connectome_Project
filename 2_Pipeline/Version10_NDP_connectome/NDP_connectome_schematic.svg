@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+    <linearGradient id="outer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="growth" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.12"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .title { font: bold 20px sans-serif; fill: #1e293b; }
+    .sub { font: 12px sans-serif; fill: #64748b; }
+    .loop { font: bold 14px sans-serif; fill: #1e40af; }
+    .stepT { font: bold 12px sans-serif; fill: #1e293b; }
+    .step { font: 11px sans-serif; fill: #475569; }
+    .code { font: 11px monospace; fill: #7c3aed; }
+    .mlp { font: bold 11px sans-serif; fill: #059669; }
+    .ret { font: bold 12px sans-serif; fill: #dc2626; }
+  </style>
+  <rect width="900" height="1200" fill="#f8fafc"/>
+  <text x="450" y="32" text-anchor="middle" class="title">NDP optimisation pipeline</text>
+  <text x="450" y="52" text-anchor="middle" class="sub">a50_optimizers.py (CMA-ES outer loop) + a30_ndp_generator.py (developmental inner loop)</text>
+
+  <rect x="30" y="70" width="840" height="1090" rx="10" fill="url(#outer)" stroke="#3b82f6" stroke-width="2"/>
+  <text x="50" y="92" class="loop">CMA-ES LOOP — generations (default 2000, or until es.stop())</text>
+
+  <rect x="60" y="105" width="780" height="70" rx="6" fill="#fff" stroke="#3b82f6"/>
+  <circle cx="82" cy="135" r="14" fill="#3b82f6"/>
+  <text x="82" y="140" text-anchor="middle" fill="#fff" font-weight="bold" font-size="12">1</text>
+  <text x="108" y="130" class="stepT">SAMPLE CANDIDATES</text>
+  <text x="108" y="148" class="code">solutions = es.ask()</text>
+  <text x="108" y="165" class="step">popsize=256 vectors, each of length nb_params (962 with default MLPs: growth=177, edge=785)</text>
+
+  <line x1="450" y1="178" x2="450" y2="195" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="60" y="200" width="780" height="640" rx="6" fill="#fff" stroke="#f59e0b" stroke-width="1.5"/>
+  <circle cx="82" cy="230" r="14" fill="#f59e0b"/>
+  <text x="82" y="235" text-anchor="middle" fill="#fff" font-weight="bold" font-size="12">2</text>
+  <text x="108" y="230" class="stepT">EVALUATE EACH CANDIDATE  ×popsize  (parallel pool)</text>
+  <text x="108" y="248" class="code">fitness_function(params, A_target, config)</text>
+
+  <rect x="80" y="260" width="740" height="65" rx="5" fill="#f0fdf4" stroke="#22c55e"/>
+  <text x="95" y="282" class="stepT">2a. Setup</text>
+  <text x="105" y="300" class="step">Build growth MLP (16→[8,4]→1, 177 params) and edge MLP (39→[16,8]→1, 785 params).</text>
+  <text x="105" y="316" class="step">Slice the candidate vector into MLP parameter tensors. Initial graph: 1 node.</text>
+
+  <line x1="450" y1="328" x2="450" y2="345" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="80" y="350" width="740" height="380" rx="6" fill="url(#growth)" stroke="#10b981" stroke-width="2"/>
+  <text x="95" y="372" class="loop">2b. GROWTH LOOP — number_of_growth_cycles (default 10)</text>
+  <text x="95" y="388" class="code">a30_ndp_generator.grow_network()</text>
+
+  <g transform="translate(95, 400)">
+    <rect x="0" y="0" width="350" height="60" rx="4" fill="#fff" stroke="#94a3b8"/>
+    <text x="10" y="18" class="stepT">i. Thinking time</text>
+    <text x="10" y="34" class="step">network_thinking_time = diameter + extra</text>
+    <text x="10" y="50" class="code">nx.diameter(G.to_undirected())</text>
+
+    <rect x="370" y="0" width="350" height="60" rx="4" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="380" y="18" class="stepT">ii. Message passing</text>
+    <text x="380" y="34" class="step">h ← h + Wᵀh, repeated `thinking_time` times</text>
+    <text x="380" y="50" class="step">fixed_only mode: only growth-state is updated</text>
+  </g>
+
+  <g transform="translate(95, 470)">
+    <rect x="0" y="0" width="350" height="60" rx="4" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="10" y="18" class="stepT">iii. Predict new nodes</text>
+    <text x="10" y="34" class="step">growth MLP on growth-state, logit &gt; 0 → spawn</text>
+    <text x="10" y="50" class="mlp">→ MLP 1: growth model</text>
+
+    <rect x="370" y="0" width="350" height="60" rx="4" fill="#fff" stroke="#94a3b8"/>
+    <text x="380" y="18" class="stepT">iv. Add new nodes</text>
+    <text x="380" y="34" class="step">parent → child; child takes next neuron</text>
+    <text x="380" y="50" class="step">identity from birth-ordered pool</text>
+  </g>
+
+  <g transform="translate(95, 540)">
+    <rect x="0" y="0" width="720" height="80" rx="4" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="10" y="18" class="stepT">v. Rewire from scratch</text>
+    <text x="10" y="34" class="step">edge MLP scores all (i,j) pairs. Apply logit threshold (default) or Bernoulli sampling.</text>
+    <text x="10" y="50" class="step">Edge MLP input: [emb_i, emb_j, coords_i, coords_j, ‖x_i − x_j‖] (39 dims with the default config)</text>
+    <text x="10" y="66" class="mlp">→ MLP 2: edge model · optional MLP 3: prune model (off by default)</text>
+  </g>
+
+  <g transform="translate(95, 630)">
+    <rect x="0" y="0" width="720" height="36" rx="4" fill="#fef3c7" stroke="#f59e0b"/>
+    <text x="10" y="22" class="step">vi. Optional: prune existing edges via prune MLP; threshold or Bernoulli, restricted to surviving edges.</text>
+  </g>
+
+  <path d="M 790 660 Q 820 660 820 470 Q 820 380 790 380" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <polygon points="790,385 800,380 790,375" fill="#10b981"/>
+  <text x="800" y="550" class="sub" transform="rotate(90, 800, 550)">×8 cycles</text>
+
+  <line x1="450" y1="735" x2="450" y2="752" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="80" y="755" width="740" height="80" rx="5" fill="#fef2f2" stroke="#ef4444"/>
+  <text x="95" y="777" class="stepT">2c. Compute fitness</text>
+  <text x="105" y="795" class="step">Truncate model adjacency and target to first `eval_first_n` neurons (birth order).</text>
+  <text x="105" y="811" class="step">loss = node penalty + soft_edge_balanced_loss + edge-count band penalty</text>
+
+  <line x1="450" y1="843" x2="450" y2="860" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="60" y="865" width="780" height="60" rx="6" fill="#fff" stroke="#8b5cf6"/>
+  <circle cx="82" cy="895" r="14" fill="#8b5cf6"/>
+  <text x="82" y="900" text-anchor="middle" fill="#fff" font-weight="bold" font-size="12">3</text>
+  <text x="108" y="890" class="stepT">UPDATE DISTRIBUTION</text>
+  <text x="108" y="908" class="code">es.tell(solutions, losses)</text>
+  <text x="108" y="921" class="step">CMA-ES updates mean and covariance towards better candidates</text>
+
+  <line x1="450" y1="928" x2="450" y2="945" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="60" y="950" width="780" height="55" rx="6" fill="#fff" stroke="#06b6d4"/>
+  <circle cx="82" cy="978" r="14" fill="#06b6d4"/>
+  <text x="82" y="983" text-anchor="middle" fill="#fff" font-weight="bold" font-size="12">4</text>
+  <text x="108" y="973" class="stepT">TRACK BEST</text>
+  <text x="108" y="990" class="step">Update best_params if best_loss improves. Snapshot gen1, gen5. Optional manual restart logic.</text>
+
+  <path d="M 850 978 Q 880 978 880 540 Q 880 140 850 140" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="850,145 860,140 850,135" fill="#6366f1"/>
+  <text x="888" y="560" class="sub" transform="rotate(90, 888, 560)">next generation</text>
+
+  <rect x="280" y="1100" width="340" height="35" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="450" y="1123" text-anchor="middle" class="ret">RETURN best_params, gen1, gen5, history</text>
+
+  <line x1="450" y1="1010" x2="450" y2="1095" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>
